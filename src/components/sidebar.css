@@ -1,5 +1,11 @@
-/* Sidebar.css */
-.sidebar-container {
+/* App.css */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+  }
+  
+  .app {
     position: relative;
   }
   
@@ -9,9 +15,9 @@
     border: none;
     color: #333;
     cursor: pointer;
-    position: absolute;
-    top: 10px;
-    left: 10px;
+    position: fixed;
+    top: 15px;
+    left: 15px;
     z-index: 1000;
   }
   
@@ -22,9 +28,9 @@
     width: 250px;
     height: 100%;
     background-color: #333;
-    color: #fff;
+    color: white;
     transition: left 0.3s ease;
-    padding: 20px 0;
+    padding: 20px;
     z-index: 999;
   }
   
@@ -44,7 +50,7 @@
   }
   
   .sidebar ul li a {
-    color: #fff;
+    color: white;
     text-decoration: none;
     font-size: 18px;
     transition: color 0.3s;
@@ -54,10 +60,14 @@
     color: #00bcd4;
   }
   
-  /* Add styles to hide overflow content */
-  body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    overflow-x: hidden;
+  .content {
+    margin: 20px;
+    padding: 20px;
+  }
+  
+  @media (min-width: 768px) {
+    .content {
+      margin-left: 260px;
+    }
   }
   
