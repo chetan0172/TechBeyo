@@ -1,40 +1,32 @@
-import React, { useState } from "react";
-import { FaBars, FaTimes } from "react-icons/fa";
-import "./App.css";
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Layout } from './components/layout/Layout';
+import { Home, About, Portfolio, Contact, Blog } from './pages';
+import { ServiceDetails } from './pages/ServiceDetails';
+import { BlogPost } from './pages/BlogPost';
+import { Terms } from './pages/Terms';
+import { FAQ } from './pages/FAQ';
+import { PrivacyPolicy } from './pages/PrivacyPolicy';
+import { Careers } from './pages/Careers';
 
-const App = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
-  };
-
+export default function App() {
   return (
-    <div className="app-container">
-      {/* Hamburger Menu */}
-      <button className="hamburger" onClick={toggleSidebar}>
-        {isOpen ? <FaTimes /> : <FaBars />}
-      </button>
-
-      {/* Sidebar */}
-      <nav className={`sidebar ${isOpen ? "open" : ""}`}>
-        <ul>
-          <li><a href="#home" onClick={toggleSidebar}>Home</a></li>
-          <li><a href="#about" onClick={toggleSidebar}>About</a></li>
-          <li><a href="#services" onClick={toggleSidebar}>Services</a></li>
-          <li><a href="#portfolio" onClick={toggleSidebar}>Portfolio</a></li>
-          <li><a href="#blog" onClick={toggleSidebar}>Blog</a></li>
-          <li><a href="#contact" onClick={toggleSidebar}>Contact</a></li>
-        </ul>
-      </nav>
-
-      {/* Main Content */}
-      <div className="main-content">
-        <h1>Welcome to My Website</h1>
-        <p>Explore the sections using the sidebar menu.</p>
-      </div>
-    </div>
+    <Router>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/portfolio" element={<Portfolio />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:id" element={<BlogPost />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/services/:id" element={<ServiceDetails />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/careers" element={<Careers />} />
+        </Routes>
+      </Layout>
+    </Router>
   );
-};
-
-export default App;
+}
