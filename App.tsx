@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-import { useEffect } from "react";
 import { useState, useEffect, Suspense, useMemo } from "react"
 import { Canvas } from "@react-three/fiber"
 import { OrbitControls, Environment, useGLTF } from "@react-three/drei"
@@ -40,13 +39,6 @@ const scrollToSection = (sectionId: string) => {
 }
 
 function App() {
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.type = "module";
-    script.src = "https://cdn.eqbit.ai/widget.js";
-    script.dataset.key =
-      "0caefd9cd7a566621b8fe02165af54361c5b7bd7a3a87c97";
-    document.body.appendChild(script);
   
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
