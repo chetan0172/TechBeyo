@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: website
+  namespace: techbeyo
+  labels:
+    app: website
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: website
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: website
+        tier: frontend
+    spec:
+      # Optional imagePullSecrets - include only if image is private
+      # imagePullSecrets:
+      #   - name: regcred
+      containers:
+        - name: website
+          image: chetan0172/react-typescript-app:v1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000 
+              name: http
+          envFrom:
+            - configMapRef:
+                name: website-config
+            - secretRef:
+                name: website-secrets
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            failureThreshold: 3
+            successThreshold: 1
+            timeoutSeconds: 2
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 20
+            timeoutSeconds: 2
+            failureThreshold: 5
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            allowPrivilegeEscalation: false
+      # Pod-level security best practice: restrict host networking/volume mounts here
+      securityContext:
+        fsGroup: 2000
+
